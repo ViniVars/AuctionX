@@ -1,37 +1,41 @@
 package com.example.ApiGateWay.Controller;
 
 
+import com.example.ApiGateWay.Dto.HistoryResponse;
+import com.example.ApiGateWay.Dto.TransactionResponse;
 import com.example.ApiGateWay.Dto.UserResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
 
     @GetMapping("/{id}")
-    UserResponse getCUserDetails(@PathVariable("id") String id){
+    ResponseEntity<UserResponse> getCUserDetails(@PathVariable("id") String id){
         return getSUserDetails(id);
     }
 
     @GetMapping("/{id}/my-history")
-    UserResponse getCUserHistory(@PathVariable("id") String id){
+    ResponseEntity<List<HistoryResponse>> getCUserHistory(@PathVariable("id") String id){
         return getSUserHistory(id);
     }
 
     @GetMapping("/{id}/my-payments")
-    UserResponse getCUserHistory(@PathVariable("id") String id){
+    ResponseEntity<List<TransactionResponse>> getCUserPayments(@PathVariable("id") String id){
         return getSUserPayments(id);
     }
 
     @PostMapping("/login")
-    UserResponse loginUser(@RequestBody UserRequest userRequest){
+    ResponseEntity<UserResponse> loginUser(@RequestBody UserRequest userRequest){
         return checkSUserLogin(userRequest);
     }
 
     @PostMapping("/sign-in")
-    UserResponse signInUser(@RequestBody UserRequest userRequest){
+    ResponseEntity<UserResponse> signInUser(@RequestBody UserRequest userRequest){
         return checkSUserSignin(userRequest);
     }
 }
