@@ -26,12 +26,12 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    UserResponse getCUserHistory(@RequestBody UserRequest userRequest){
+    UserResponse loginUser(@RequestBody UserRequest userRequest){
         return checkSUserLogin(userRequest);
     }
 
     @PostMapping("/sign-in")
-    UserResponse getCUserHistory(@RequestBody UserRequest userRequest){
+    UserResponse signInUser(@RequestBody UserRequest userRequest){
         return checkSUserSignin(userRequest);
     }
 }
