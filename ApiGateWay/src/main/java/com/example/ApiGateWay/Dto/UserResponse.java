@@ -12,14 +12,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserResponse {
+
     private String userId;
     private String userName;
     private String phNo;
     private int age;
     private String mail;
     private LocalDate joinDate;
-    private List<HistoryResponse> myHistory;
-    private List<TransactionResponse> myPayments;
-    private List<SubscriptionResponse> mySubs;
 
 }

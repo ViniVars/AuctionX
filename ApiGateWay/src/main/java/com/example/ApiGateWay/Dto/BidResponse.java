@@ -26,7 +26,5 @@ public class BidResponse {
     private double finalPrice;
     private String productName;
     private UserResponse userResponse;
-    private List<HistoryResponse> myHistory;
-    private List<SubscriptionResponse> mySubs;
 
 }
