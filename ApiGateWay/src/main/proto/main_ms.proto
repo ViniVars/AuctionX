@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+service MainService {
+  rpc GetUserDetails(UserByIdRequest) returns (UserResponse);
+  rpc GetUserHistory(UserByIdRequest) returns (UserHistoryResponse);
+  rpc CheckUserLogin(LoginRequest) returns (UserResponse);
+  rpc CreateUser(CreateUserRequest) returns (UserResponse);
+}
+
+message UserByIdRequest {
+  int32 userId = 1;
+}
+
+message UserResponse {
+  int32 userId = 1;
+  string userName = 2;
+  string phNo = 3;
+  int32 age = 4;
+  string mail = 5;
+  google.protobuf.Timestamp joinDate = 6;
+}
+
+message UserHistoryResponse {
+  repeated HistoryResponse histories = 1;
+}
+
+message HistoryResponse {
+  int32 histId = 1;
+  google.protobuf.Timestamp histDate = 2;
+  int32 bidId = 3;
+  string productName = 4;
+  double bidCost = 5;
+  int32 userId = 6;
+  string userName = 7;
+  int32 ownerId = 8;
+  string ownerName = 9;
+}
+
+message LoginRequest {
+  int32 userId = 1;
+  string password = 2;
+}
+
+message CreateUserRequest {
+  string userName = 1;
+  string phNo = 2;
+  string password = 3;
+  int32 age = 4;
+  string mail = 5;
+}
