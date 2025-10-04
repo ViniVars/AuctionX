@@ -14,10 +14,14 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class TransactionResponse {
 
-    private String transId;
-    private Double bidCost;
+    private int transId;
     private LocalDate transDate;
-    private BidResponse bidResponse;
-    private UserResponse userResponse;
+    private int bidId;
+    private String productName;
+    private Double bidCost;
+    private int userId;
+    private String userName;
+    private int ownerId;
+    private String ownerName;
 
 }

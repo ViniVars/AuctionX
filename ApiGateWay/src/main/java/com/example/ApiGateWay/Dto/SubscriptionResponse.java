@@ -13,8 +13,14 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class SubscriptionResponse {
 
-    private String subId;
+    private int subId;
     private LocalDate subDate;
-    private UserResponse userResponse;
-    private BidResponse bidResponse;
+    private int bidId;
+    private String productName;
+    private LocalDate bidStartDate;
+    private int userId;
+    private String ownerName;
+    private int ownerId;
+    private String userName;
+
 }

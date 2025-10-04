@@ -13,7 +13,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class UserRequest {
 
-    @NonNull
     private String userName;
     private String phNo;
     private String password;

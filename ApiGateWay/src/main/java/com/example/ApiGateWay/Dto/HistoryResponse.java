@@ -13,8 +13,14 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class HistoryResponse {
 
-    private String histId;
+    private int histId;
     private LocalDate histDate;
-    private BidResponse bidResponse;
-    private UserResponse userResponse;
+    private int bidId;
+    private String productName;
+    private double bidCost;
+    private int userId;
+    private String userName;
+    private int ownerId;
+    private String ownerName;
+
 }

@@ -9,6 +9,7 @@ import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,11 +19,13 @@ import java.util.List;
 @AllArgsConstructor
 public class BidRequest {
 
-    private double basePrice;
+    private int bidId;
+    private String productName;
+    private int ownerId;
     private String descp;
     private LocalDate startDate;
     private LocalDate endDate;
-    private String productName;
-    private UserResponse userResponse;
+    private int basePrice;
+    private int finalPrice;
 
 }

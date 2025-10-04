@@ -17,16 +17,18 @@ public class SubscriptionController {
     @GetMapping("/")
     ResponseEntity<List<SubscriptionResponse>> getCBidSubs(
             @RequestParam String bidId,
-            @RequestParam String userId){
+            @RequestParam String userId,
+            @RequestParam(defaultValue = "0") int skip,
+            @RequestParam(defaultValue = "20") int limit){
         List<filterParams> filters = new ArrayList<>();
         if(bidId != null) filters.add(new filterParams("bidId", bidId));
         if(userId != null) filters.add(new filterParams("userId", userId));
-        return getSBidSubs(filters);
+        return ResponseEntity.ok(getSBidSubs(filters, skip, limit));
     }
 
     @PostMapping("/bid/{id}")
     ResponseEntity<Boolean> getCBidSubs(@PathVariable("id") String id, @RequestBody UserRequest userRequest){
-        return getSBidSubs(id, userRequest);
+        return ResponseEntity.ok(getSBidSubs(id, userRequest));
     }
 
 }

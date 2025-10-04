@@ -18,13 +18,14 @@ import java.util.List;
 @AllArgsConstructor
 public class BidResponse {
 
-    private String bidId;
-    private double basePrice;
+    private int bidId;
+    private String productName;
+    private int ownerId;
     private String descp;
     private LocalDate startDate;
     private LocalDate endDate;
-    private double finalPrice;
-    private String productName;
-    private UserResponse userResponse;
+    private int basePrice;
+    private int finalPrice;
+    private LocalDate bidRegisterDate;
 
 }
