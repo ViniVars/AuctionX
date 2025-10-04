@@ -1,0 +1,32 @@
+
+syntax = "proto3";
+import "google/protobuf/timestamp.proto";
+
+option java_multiple_files = true;
+option java_package = "user_ms";
+
+service userMs_Service {
+  rpc getSUserDetails(UserRequest) returns (UserResponse);
+  rpc getSUserHistory(UserRequest) returns (HistoryResponse);
+}
+
+message UserRequest{
+  string userId = 1;
+  int32 skip = 2;
+  int32 limit = 3;
+}
+
+message UserResponse{
+  string userId = 1;
+  string userName = 2;
+  int32 age = 3;
+  string mail = 4;
+}
+
+message HistoryResponse{
+  string histId = 1;
+  string bidId = 2;
+  string productName = 3;
+  double bidCost = 4;
+  google.protobuf.Timestamp histDate = 5;
+}
