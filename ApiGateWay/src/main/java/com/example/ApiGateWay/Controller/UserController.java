@@ -1,38 +1,40 @@
 package com.example.ApiGateWay.Controller;
 
 
-import com.example.ApiGateWay.Dto.*;
+
+import com.example.ApiGateWay.Service.MainService;
+import main_ms.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
+    @Autowired
+    MainService mainService;
 
     @GetMapping("/{id}")
-    ResponseEntity<UserResponse> getCUserDetails(@PathVariable("id") String id){
-        return ResponseEntity.ok(getSUserDetails(id));
+    ResponseEntity<UserResponse> getCUserDetails(@PathVariable int userId){
+        UserByIdRequest userByIdRequest = UserByIdRequest.newBuilder().setUserId(userId).build();
+        return ResponseEntity.ok(mainService.getSUserDetails(userByIdRequest));
     }
 
     @GetMapping("/{id}/my-history")
-    ResponseEntity<List<HistoryResponse>> getCUserHistory(
-            @PathVariable String id,
-            @RequestParam(defaultValue = "0") int skip,
-            @RequestParam(defaultValue = "20") int limit){
-        return ResponseEntity.ok(getSUserHistory(id, skip, limit));
+    ResponseEntity<UserHistoryResponse> getCUserHistory(@PathVariable int userId){
+        UserByIdRequest userByIdRequest = UserByIdRequest.newBuilder().setUserId(userId).build();
+        return ResponseEntity.ok(mainService.getSUserHistory(userByIdRequest));
     }
 
 
     @PostMapping("/login")
-    ResponseEntity<UserResponse> loginUser(@RequestBody UserRequest userRequest){
-        return ResponseEntity.ok(checkSUserLogin(userRequest));
+    ResponseEntity<UserResponse> loginUser(@RequestBody LoginRequest loginRequest){
+        return ResponseEntity.ok(mainService.checkSUserLogin(loginRequest));
     }
 
     @PostMapping("/sign-in")
-    ResponseEntity<UserResponse> signInUser(@RequestBody UserRequest userRequest){
-        return ResponseEntity.ok(checkSUserSignin(userRequest));
+    ResponseEntity<UserResponse> signInUser(@RequestBody CreateUserRequest createUserRequest){
+        return ResponseEntity.ok(mainService.checkSUserSignIn(createUserRequest));
     }
 }

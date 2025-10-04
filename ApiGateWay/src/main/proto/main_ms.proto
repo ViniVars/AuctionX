@@ -2,11 +2,19 @@ syntax = "proto3";
 
 import "google/protobuf/timestamp.proto";
 
+option java_multiple_files = true;
+option java_package = "main_ms";
+
 service MainService {
+
   rpc GetUserDetails(UserByIdRequest) returns (UserResponse);
   rpc GetUserHistory(UserByIdRequest) returns (UserHistoryResponse);
   rpc CheckUserLogin(LoginRequest) returns (UserResponse);
   rpc CreateUser(CreateUserRequest) returns (UserResponse);
+  rpc GetBidDetails(BidByIdRequest) returns(BidResponse);
+  rpc GetBidHistory(BidByIdRequest) returns (BidHistoryResponse);
+  rpc CreateBid(CreateBidRequest) returns(BidResponse);
+
 }
 
 message UserByIdRequest {
@@ -23,7 +31,11 @@ message UserResponse {
 }
 
 message UserHistoryResponse {
-  repeated HistoryResponse histories = 1;
+  repeated HistoryResponse history = 1;
+}
+
+message BidHistoryResponse {
+  repeated HistoryResponse history = 1;
 }
 
 message HistoryResponse {
@@ -49,4 +61,34 @@ message CreateUserRequest {
   string password = 3;
   int32 age = 4;
   string mail = 5;
+}
+
+
+message BidByIdRequest {
+  int32 bidId = 1;
+}
+
+message BidResponse {
+
+  int32 bidId = 1;
+  string productName = 2;
+  string descp = 3;
+  int32 ownerId = 4;
+  string ownerName = 5;
+  google.protobuf.Timestamp startDate = 6;
+  google.protobuf.Timestamp endDate = 7;
+  double basePrice = 8;
+  double finalPrice = 9;
+}
+
+message CreateBidRequest {
+
+  string productName = 1;
+  string descp = 2;
+  int32 ownerId = 3;
+  string ownerName = 4;
+  google.protobuf.Timestamp startDate = 5;
+  google.protobuf.Timestamp endDate = 6;
+  double basePrice = 7;
+
 }
