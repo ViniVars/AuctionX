@@ -1,15 +1,18 @@
 package com.example.ApiGateWay.Service;
 
+import com.google.protobuf.Empty;
 import main_ms.*;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.stereotype.Service;
 
-@Service
+
 public class MainService {
 
 
     @GrpcClient("MainServiceClient")
     private MainServiceGrpc.MainServiceBlockingStub mainServiceBlockingStub;
+
+//   User MS
 
     public UserResponse getSUserDetails(UserByIdRequest userByIdRequest){
         return  mainServiceBlockingStub.getUserDetails(userByIdRequest);
@@ -19,13 +22,15 @@ public class MainService {
         return mainServiceBlockingStub.getUserHistory(userByIdRequest);
     }
 
-    public UserResponse checkSUserLogin(LoginRequest loginRequest){
+    public BoolResponse checkSUserLogin(LoginRequest loginRequest){
         return mainServiceBlockingStub.checkUserLogin(loginRequest);
     }
 
-    public UserResponse checkSUserSignIn(CreateUserRequest createUserRequest){
+    public BoolResponse checkSUserSignIn(CreateUserRequest createUserRequest){
         return mainServiceBlockingStub.createUser(createUserRequest);
     }
+
+//    Bid MS
 
     public BidResponse getSBidDetails(BidByIdRequest bidByIdRequest){
         return mainServiceBlockingStub.getBidDetails(bidByIdRequest);
@@ -33,5 +38,23 @@ public class MainService {
 
     public BidHistoryResponse getSBidHistory(BidByIdRequest bidByIdRequest){
         return mainServiceBlockingStub.getBidHistory(bidByIdRequest);
+    }
+
+    public BoolResponse setSBidDetails(CreateBidRequest createBidRequest){
+        return mainServiceBlockingStub.createBid(createBidRequest);
+    }
+
+    public AllBidResponse getSAllBids(){
+        return mainServiceBlockingStub.getAllBidDetails(Empty.getDefaultInstance());
+    }
+
+//    Sub MS
+
+    public AllSubResponse getSAllSubs(SubByIdRequest subByIdRequest){
+        return mainServiceBlockingStub.getAllSubDetails(subByIdRequest);
+    }
+
+    public BoolResponse setSBidSub(SubRequest subRequest){
+        return mainServiceBlockingStub.setBidSub(subRequest);
     }
 }

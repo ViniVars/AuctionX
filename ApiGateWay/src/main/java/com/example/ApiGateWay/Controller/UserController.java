@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 public class UserController {
 
-    @Autowired
-    MainService mainService;
+
+    private MainService mainService;
 
     @GetMapping("/{id}")
     ResponseEntity<UserResponse> getCUserDetails(@PathVariable int userId){
         UserByIdRequest userByIdRequest = UserByIdRequest.newBuilder().setUserId(userId).build();
+        System.out.println("Api Reached");
         return ResponseEntity.ok(mainService.getSUserDetails(userByIdRequest));
     }
 
@@ -29,12 +30,12 @@ public class UserController {
 
 
     @PostMapping("/login")
-    ResponseEntity<UserResponse> loginUser(@RequestBody LoginRequest loginRequest){
+    ResponseEntity<BoolResponse> loginUser(@RequestBody LoginRequest loginRequest){
         return ResponseEntity.ok(mainService.checkSUserLogin(loginRequest));
     }
 
     @PostMapping("/sign-in")
-    ResponseEntity<UserResponse> signInUser(@RequestBody CreateUserRequest createUserRequest){
+    ResponseEntity<BoolResponse> signInUser(@RequestBody CreateUserRequest createUserRequest){
         return ResponseEntity.ok(mainService.checkSUserSignIn(createUserRequest));
     }
 }

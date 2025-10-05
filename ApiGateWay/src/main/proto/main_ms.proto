@@ -1,6 +1,8 @@
 syntax = "proto3";
 
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/any.proto";
 
 option java_multiple_files = true;
 option java_package = "main_ms";
@@ -9,12 +11,55 @@ service MainService {
 
   rpc GetUserDetails(UserByIdRequest) returns (UserResponse);
   rpc GetUserHistory(UserByIdRequest) returns (UserHistoryResponse);
-  rpc CheckUserLogin(LoginRequest) returns (UserResponse);
-  rpc CreateUser(CreateUserRequest) returns (UserResponse);
+  rpc CheckUserLogin(LoginRequest) returns (BoolResponse);
+  rpc CreateUser(CreateUserRequest) returns (BoolResponse);
   rpc GetBidDetails(BidByIdRequest) returns(BidResponse);
   rpc GetBidHistory(BidByIdRequest) returns (BidHistoryResponse);
-  rpc CreateBid(CreateBidRequest) returns(BidResponse);
+  rpc CreateBid(CreateBidRequest) returns(BoolResponse);
+  rpc GetAllBidDetails(google.protobuf.Empty) returns(AllBidResponse);
+  rpc GetAllSubDetails(SubByIdRequest) returns (AllSubResponse);
+  rpc SetBidSub(SubRequest) returns (BoolResponse);
 
+}
+
+message BoolResponse {
+  bool success = 1;
+}
+
+message SubByIdRequest {
+  int32 subReq = 1;
+}
+
+message SubRequest{
+  int32 bidId = 1;
+  string productName = 2;
+  google.protobuf.Timestamp bidStartDate = 3;
+  int32 userId = 4;
+  string ownerName = 5;
+  int32 ownerId = 6;
+  string userName = 7;
+
+}
+
+message FilterParam {
+  string key = 1;
+  google.protobuf.Any value = 2;
+}
+
+message AllSubResponse {
+  repeated SubResponse subResponse = 1;
+}
+
+message SubResponse {
+  int32 subId = 1;
+  google.protobuf.Timestamp subDate = 2;
+  int32 bidId = 3;
+  string productName = 4;
+  google.protobuf.Timestamp bidStartDate = 5;
+  int32 userId = 6;
+  string ownerName = 7;
+  int32 ownerId = 8;
+  string userName = 9;
 }
 
 message UserByIdRequest {
@@ -79,6 +124,10 @@ message BidResponse {
   google.protobuf.Timestamp endDate = 7;
   double basePrice = 8;
   double finalPrice = 9;
+}
+
+message AllBidResponse {
+  repeated BidResponse bidResponse = 1;
 }
 
 message CreateBidRequest {
