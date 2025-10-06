@@ -6,14 +6,12 @@ option java_multiple_files = true;
 option java_package = "user_ms";
 
 service userMs_Service {
-  rpc getSUserDetails(UserRequest) returns (UserResponse);
-  rpc getSUserHistory(UserRequest) returns (HistoryResponse);
+  rpc getSUserDetails(UserByIdRequest) returns (UserResponse);
+  rpc getSUserHistory(UserByIdRequest) returns (AllHistoryResponse);
 }
 
-message UserRequest{
+message UserByIdRequest{
   string userId = 1;
-  int32 skip = 2;
-  int32 limit = 3;
 }
 
 message UserResponse{
@@ -21,6 +19,10 @@ message UserResponse{
   string userName = 2;
   int32 age = 3;
   string mail = 4;
+}
+
+message AllHistoryResponse {
+  repeated HistoryResponse historyResponse = 1;
 }
 
 message HistoryResponse{
