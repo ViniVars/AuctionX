@@ -18,7 +18,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private String userId;
+    private int userId;
     private String userName;
     private String password;
     private int age;

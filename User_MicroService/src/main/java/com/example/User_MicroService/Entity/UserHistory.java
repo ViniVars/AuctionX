@@ -18,11 +18,15 @@ public class UserHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    String histId;
-    private String bidId;
-    private String bidOwner;
+    int histId;
+    private int bidId;
     private String productName;
+    private int ownerId;
+    private String ownerName;
     private LocalDate histDate = LocalDate.now();
-    private String userId;
+    private int userId;
+    private String userName;
+    private double bidCost;
+
 
 }

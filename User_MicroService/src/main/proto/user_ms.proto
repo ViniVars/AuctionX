@@ -1,6 +1,7 @@
 
 syntax = "proto3";
 import "google/protobuf/timestamp.proto";
+package user_ms;
 
 option java_multiple_files = true;
 option java_package = "user_ms";
@@ -11,11 +12,11 @@ service userMs_Service {
 }
 
 message UserByIdRequest{
-  string userId = 1;
+  int32 userId = 1;
 }
 
 message UserResponse{
-  string userId = 1;
+  int32 userId = 1;
   string userName = 2;
   int32 age = 3;
   string mail = 4;
@@ -25,10 +26,14 @@ message AllHistoryResponse {
   repeated HistoryResponse historyResponse = 1;
 }
 
-message HistoryResponse{
-  string histId = 1;
-  string bidId = 2;
-  string productName = 3;
-  double bidCost = 4;
-  google.protobuf.Timestamp histDate = 5;
+message HistoryResponse {
+  int32 histId = 1;
+  google.protobuf.Timestamp histDate = 2;
+  int32 bidId = 3;
+  string productName = 4;
+  double bidCost = 5;
+  int32 userId = 6;
+  string userName = 7;
+  int32 ownerId = 8;
+  string ownerName = 9;
 }
