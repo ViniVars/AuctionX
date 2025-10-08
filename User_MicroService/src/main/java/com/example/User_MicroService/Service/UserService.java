@@ -9,6 +9,7 @@ import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 import user_ms.*;
+import user_ms.Boolean;
 
 import java.util.List;
 
@@ -71,4 +72,22 @@ public class UserService extends userMs_ServiceGrpc.userMs_ServiceImplBase {
         }
     }
 
+    @Override
+    public void checkSUserDetails(LoginRequest request, StreamObserver<Boolean> responseObserver) {
+        UserResponse userResponse = userRepo.userLogin(request.getUserName(), request.getPassword());
+        if(userResponse != null) {
+            Boolean exists = Boolean.newBuilder().setSuccess(true).build();
+            responseObserver.onNext(exists);
+            responseObserver.onCompleted();
+        }
+        else{
+            responseObserver.onError(new RuntimeException("User Not Found"));
+        }
+
+    }
+
+    @Override
+    public void setSUserDetails(CreateUserRequest request, StreamObserver<UserResponse> responseObserver) {
+
+    }
 }
