@@ -1,26 +1,27 @@
 package com.example.ApiGateWay.Dto;
 
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class SubscriptionResponse {
+@NoArgsConstructor
+public class HistoryResponseDTO {
 
-    private int subId;
-    private LocalDate subDate;
+    private int histId;
+    private LocalDateTime histDate;
     private int bidId;
     private String productName;
-    private LocalDate bidStartDate;
+    private double bidCost;
     private int userId;
-    private String ownerName;
-    private int ownerId;
     private String userName;
+    private int ownerId;
+    private String ownerName;
 
 }

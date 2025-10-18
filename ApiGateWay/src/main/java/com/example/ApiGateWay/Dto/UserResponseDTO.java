@@ -1,23 +1,22 @@
 package com.example.ApiGateWay.Dto;
 
+import com.google.protobuf.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
-import java.util.List;
+import java.time.LocalDateTime;
 
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserResponse {
+public class UserResponseDTO {
 
-    private String userId;
+    private int userId;
     private String userName;
     private String phNo;
     private int age;
     private String mail;
-    private LocalDate joinDate;
+    private LocalDateTime joinDate;
 
 }

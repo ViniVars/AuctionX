@@ -5,17 +5,19 @@ import com.example.User_MicroService.Entity.User;
 import com.example.User_MicroService.Entity.UserHistory;
 import com.example.User_MicroService.Repo.UserHistoryRepo;
 import com.example.User_MicroService.Repo.UserRepo;
+import com.google.protobuf.Timestamp;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
-import user_ms.*;
-import user_ms.Boolean;
+import user_ms.UserMsServiceGrpc;
+
 
 import java.util.List;
 
 
 @GrpcService
-public class UserService extends userMs_ServiceGrpc.userMs_ServiceImplBase {
+public class UserService extends UserMsServiceGrpc.UserMsServiceImplBase {
+
 
     @Autowired
     UserRepo userRepo;
@@ -24,29 +26,32 @@ public class UserService extends userMs_ServiceGrpc.userMs_ServiceImplBase {
     UserHistoryRepo userHistoryRepo;
 
     @Override
-    public void getSUserDetails(UserByIdRequest userByIdRequest, StreamObserver<UserResponse> responseObserver) {
+    public void getUserDetails(user_ms.UserByIdRequest userByIdRequest, StreamObserver<user_ms.UserResponse> responseObserver) {
         User user = userRepo.findById(userByIdRequest.getUserId())
                         .orElseThrow(() -> new RuntimeException("User not Found"));
 
-        UserResponse userResponse = UserResponse.newBuilder()
+        user_ms.UserResponse userResponse = user_ms.UserResponse.newBuilder()
                 .setUserId(user.getUserId())
                 .setUserName(user.getUserName())
                 .setMail(user.getMail())
                 .setAge(user.getAge())
+                .setPhNo(user.getPhNo())
+//                .setJoinDate(Timestamp.newBuilder().setNanos(user.getJoinDate()).build()user.getJoinDate())
                 .build();
         responseObserver.onNext(userResponse);
         responseObserver.onCompleted();
     }
 
+
     @Override
-    public void getSUserHistory(UserByIdRequest userByIdRequest, StreamObserver<AllHistoryResponse> responseObserver) {
+    public void getUserHistory(user_ms.UserByIdRequest userByIdRequest, StreamObserver<user_ms.UserHistoryResponse> responseObserver) {
         try {
             // Step 1: Fetch all history records for the given userId
             List<UserHistory> userHistoryList = userHistoryRepo.findAllHistoryById(userByIdRequest.getUserId());
 
             // Step 2: Convert each UserHistory (entity) to HistoryResponse (gRPC object)
-            List<HistoryResponse> historyResponses = userHistoryList.stream()
-                    .map(history -> HistoryResponse.newBuilder()
+            List<user_ms.HistoryResponse> historyResponses = userHistoryList.stream()
+                    .map(history -> user_ms.HistoryResponse.newBuilder()
                             .setHistId(history.getHistId())
                             .setBidId(history.getBidId())
                             .setProductName(history.getProductName())
@@ -59,7 +64,7 @@ public class UserService extends userMs_ServiceGrpc.userMs_ServiceImplBase {
                     .toList();
 
             // Step 3: Build the final AllHistoryResponse
-            AllHistoryResponse allHistoryResponse = AllHistoryResponse.newBuilder()
+            user_ms.UserHistoryResponse allHistoryResponse = user_ms.UserHistoryResponse.newBuilder()
                     .addAllHistoryResponse(historyResponses)
                     .build();
 
@@ -72,12 +77,12 @@ public class UserService extends userMs_ServiceGrpc.userMs_ServiceImplBase {
         }
     }
 
+
     @Override
-    public void checkSUserDetails(LoginRequest request, StreamObserver<Boolean> responseObserver) {
-        UserResponse userResponse = userRepo.userLogin(request.getUserName(), request.getPassword());
+    public void checkUserLogin(user_ms.LoginRequest request, StreamObserver<user_ms.UserResponse> responseObserver) {
+        user_ms.UserResponse userResponse = userRepo.userLogin(request.getUserName(), request.getPassword());
         if(userResponse != null) {
-            Boolean exists = Boolean.newBuilder().setSuccess(true).build();
-            responseObserver.onNext(exists);
+            responseObserver.onNext(userResponse);
             responseObserver.onCompleted();
         }
         else{
@@ -87,7 +92,7 @@ public class UserService extends userMs_ServiceGrpc.userMs_ServiceImplBase {
     }
 
     @Override
-    public void setSUserDetails(CreateUserRequest request, StreamObserver<UserResponse> responseObserver) {
+    public void createUser(user_ms.CreateUserRequest request, StreamObserver<user_ms.UserResponse> responseObserver) {
 
     }
 }

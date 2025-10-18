@@ -1,0 +1,23 @@
+
+syntax = "proto3";
+import "google/protobuf/timestamp.proto";
+package types;
+
+option java_multiple_files = true;
+option java_package = "types";
+
+message AllHistoryResponse {
+  repeated HistoryResponse historyResponse = 1;
+}
+
+message HistoryResponse {
+  int32 histId = 1;
+  google.protobuf.Timestamp histDate = 2;
+  int32 bidId = 3;
+  string productName = 4;
+  double bidCost = 5;
+  int32 userId = 6;
+  string userName = 7;
+  int32 ownerId = 8;
+  string ownerName = 9;
+}

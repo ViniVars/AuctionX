@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 
@@ -23,7 +24,8 @@ public class UserHistory {
     private String productName;
     private int ownerId;
     private String ownerName;
-    private LocalDate histDate = LocalDate.now();
+    @CreationTimestamp
+    private LocalDate histDate;
     private int userId;
     private String userName;
     private double bidCost;

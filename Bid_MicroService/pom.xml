@@ -14,9 +14,9 @@
     </parent>
 
     <groupId>com.example</groupId>
-    <artifactId>User_MicroService</artifactId>
+    <artifactId>Bid_MicroService</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>User_MicroService</name>
+    <name>Bid_MicroService</name>
     <description>Spring Boot API Gateway with gRPC and PostgreSQL</description>
 
     <properties>

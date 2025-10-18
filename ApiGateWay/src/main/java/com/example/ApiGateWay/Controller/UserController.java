@@ -2,40 +2,53 @@ package com.example.ApiGateWay.Controller;
 
 
 
-import com.example.ApiGateWay.Service.MainService;
-import main_ms.*;
+import com.example.ApiGateWay.Dto.HistoryResponseDTO;
+import com.example.ApiGateWay.Dto.UserRequestDTO;
+import com.example.ApiGateWay.Dto.UserResponseDTO;
+import com.example.ApiGateWay.Mapper.HistoryMapper;
+import com.example.ApiGateWay.Mapper.UserMapper;
+import com.example.ApiGateWay.Service.UserService;
+import user_ms.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
+    @Autowired
+    private UserService userService;
 
-    private MainService mainService;
-
-    @GetMapping("/{id}")
-    ResponseEntity<UserResponse> getCUserDetails(@PathVariable int userId){
+    @GetMapping("/{userId}")
+    ResponseEntity<UserResponseDTO> getCUserDetails(@PathVariable("userId") int userId){
         UserByIdRequest userByIdRequest = UserByIdRequest.newBuilder().setUserId(userId).build();
-        System.out.println("Api Reached");
-        return ResponseEntity.ok(mainService.getSUserDetails(userByIdRequest));
+        UserResponseDTO userResponseDTO = UserMapper.toDTO(userService.getSUserDetails(userByIdRequest));
+        System.out.println("COntroller " + userResponseDTO);
+        return ResponseEntity.ok(userResponseDTO);
     }
 
-    @GetMapping("/{id}/my-history")
-    ResponseEntity<UserHistoryResponse> getCUserHistory(@PathVariable int userId){
+    @GetMapping("/{userId}/my-history")
+    ResponseEntity<List<HistoryResponseDTO>> getCUserHistory(@PathVariable("userId") int userId){
         UserByIdRequest userByIdRequest = UserByIdRequest.newBuilder().setUserId(userId).build();
-        return ResponseEntity.ok(mainService.getSUserHistory(userByIdRequest));
+        List<HistoryResponseDTO> historyResponseDTO = HistoryMapper.toDTOList(userService.getSUserHistory(userByIdRequest));
+        return ResponseEntity.ok(historyResponseDTO);
     }
 
 
     @PostMapping("/login")
-    ResponseEntity<BoolResponse> loginUser(@RequestBody LoginRequest loginRequest){
-        return ResponseEntity.ok(mainService.checkSUserLogin(loginRequest));
+    ResponseEntity<UserResponseDTO> loginUser(@RequestBody UserRequestDTO userRequestDTO){
+        LoginRequest loginRequest = LoginRequest.newBuilder().setUserName(userRequestDTO.getUserName()).setPassword(userRequestDTO.getPassword()).build();
+        UserResponseDTO userResponseDTO = UserMapper.toDTO(userService.checkSUserLogin(loginRequest));
+        return ResponseEntity.ok(userResponseDTO);
     }
 
     @PostMapping("/sign-in")
-    ResponseEntity<BoolResponse> signInUser(@RequestBody CreateUserRequest createUserRequest){
-        return ResponseEntity.ok(mainService.checkSUserSignIn(createUserRequest));
+    ResponseEntity<UserResponseDTO> signInUser(@RequestBody UserRequestDTO userRequestDTO){
+        CreateUserRequest createUserRequest = UserMapper.toProto(userRequestDTO);
+        UserResponseDTO userResponseDTO = UserMapper.toDTO(userService.checkSUserSignIn(createUserRequest));
+        return ResponseEntity.ok(userResponseDTO);
     }
 }

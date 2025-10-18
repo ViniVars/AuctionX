@@ -9,16 +9,16 @@ option java_package = "main_ms";
 
 service MainService {
 
-  rpc GetUserDetails(UserByIdRequest) returns (UserResponse);
-  rpc GetUserHistory(UserByIdRequest) returns (UserHistoryResponse);
-  rpc CheckUserLogin(LoginRequest) returns (BoolResponse);
-  rpc CreateUser(CreateUserRequest) returns (BoolResponse);
-  rpc GetBidDetails(BidByIdRequest) returns(BidResponse);
-  rpc GetBidHistory(BidByIdRequest) returns (BidHistoryResponse);
-  rpc CreateBid(CreateBidRequest) returns(BoolResponse);
-  rpc GetAllBidDetails(google.protobuf.Empty) returns(AllBidResponse);
-  rpc GetAllSubDetails(SubByIdRequest) returns (AllSubResponse);
-  rpc SetBidSub(SubRequest) returns (BoolResponse);
+  rpc getUserDetails(UserByIdRequest) returns (UserResponse);
+  rpc getUserHistory(UserByIdRequest) returns (UserHistoryResponse);
+  rpc checkUserLogin(LoginRequest) returns (UserResponse);
+  rpc createUser(CreateUserRequest) returns (UserResponse);
+  rpc getBidDetails(BidByIdRequest) returns(BidResponse);
+  rpc getBidHistory(BidByIdRequest) returns (BidHistoryResponse);
+  rpc createBid(CreateBidRequest) returns(BoolResponse);
+  rpc getAllBidDetails(google.protobuf.Empty) returns(AllBidResponse);
+  rpc getAllSubDetails(SubByIdRequest) returns (AllSubResponse);
+  rpc setBidSub(SubRequest) returns (BoolResponse);
 
 }
 
@@ -96,7 +96,7 @@ message HistoryResponse {
 }
 
 message LoginRequest {
-  int32 userId = 1;
+  string userName = 1;
   string password = 2;
 }
 

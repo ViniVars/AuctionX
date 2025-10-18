@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package bid_ms;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "Common/types.proto";
+
+option java_multiple_files = true;
+option java_package = "bid_ms";
+
+
+
+service BidMsService{
+  rpc getBidDetails(BidByIdRequest) returns(BidResponse);
+  rpc getBidHistory(BidByIdRequest) returns (types.AllHistoryResponse);
+  rpc createBid(CreateBidRequest) returns(BidResponse);
+  rpc getAllBidDetails(google.protobuf.Empty) returns(AllBidResponse);
+}
+
+
+
+message BidByIdRequest {
+  int32 bidId = 1;
+}
+
+message BidResponse {
+
+  int32 bidId = 1;
+  string productName = 2;
+  string descp = 3;
+  int32 ownerId = 4;
+  string ownerName = 5;
+  google.protobuf.Timestamp startDate = 6;
+  google.protobuf.Timestamp endDate = 7;
+  double basePrice = 8;
+  double finalPrice = 9;
+  google.protobuf.Timestamp createdAt = 10;
+
+}
+
+message AllBidResponse {
+  repeated BidResponse bidResponse = 1;
+}
+
+message CreateBidRequest {
+
+  string productName = 1;
+  string descp = 2;
+  int32 ownerId = 3;
+  string ownerName = 4;
+  google.protobuf.Timestamp startDate = 5;
+  google.protobuf.Timestamp endDate = 6;
+  double basePrice = 7;
+
+
+}
+
+
+
+
+

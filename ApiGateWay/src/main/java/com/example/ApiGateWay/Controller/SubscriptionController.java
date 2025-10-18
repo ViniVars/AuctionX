@@ -1,22 +1,18 @@
 package com.example.ApiGateWay.Controller;
 
 
-import com.example.ApiGateWay.Service.MainService;
-import main_ms.BidByIdRequest;
-import main_ms.BoolResponse;
-import main_ms.FilterParam;
-import main_ms.SubRequest;
-import org.springframework.http.ResponseEntity;
+import com.example.ApiGateWay.Service.UserService;
+//import main_ms.BidByIdRequest;
+//import main_ms.BoolResponse;
+//import main_ms.FilterParam;
+//import main_ms.SubRequest;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/subs")
 public class SubscriptionController {
 
-    private MainService mainService;
+    private UserService userService;
 //    @GetMapping("/")
 //    ResponseEntity<AllSubscriptionResponse> getCBidSubs(
 //            @RequestParam int bidId,
@@ -27,9 +23,9 @@ public class SubscriptionController {
 //        return ResponseEntity.ok(getSBidSubs(filters));
 //    }
 
-    @PostMapping("/")
-    ResponseEntity<BoolResponse> getCBidSubs(@RequestBody SubRequest subRequest){
-        return ResponseEntity.ok(mainService.setSBidSub(subRequest));
-    }
+//    @PostMapping("/")
+//    ResponseEntity<BoolResponse> getCBidSubs(@RequestBody SubRequest subRequest){
+//        return ResponseEntity.ok(mainService.setSBidSub(subRequest));
+//    }
 
 }

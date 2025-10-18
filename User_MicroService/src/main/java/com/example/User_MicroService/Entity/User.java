@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
+import java.time.LocalDate;
 
 
 @Entity
@@ -23,5 +24,7 @@ public class User {
     private String password;
     private int age;
     private String mail;
+    private String phNo;
+    private LocalDate joinDate = LocalDate.now();
 
 }
